@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div class="topHeader flex justify-between items-center">
+    <img src="assets/logo.png" class="logo w-28 h-20" />
+    <div class="flex mx-4 flex-row space-x-6">
+      <img src="svg_icons/signal.svg" class="signal w-6 h-6" />
+      <img src="svg_icons/notification.svg" class="notif w-6 h-6" />
+      <img src="svg_icons/search.svg" class="search w-6 h-6" />
+    </div>
+  </div>
+  <div class="flex py-4 items-center overflow-x-auto">
+    <img src="svg_icons/map.svg" class="bg-gray-100 p-2 mx-2 rounded-md map w-12 h-9 " />
+    <p class="bg-gray-100 h-9 text-black mx-1 px-4 py-2 rounded-md font-medium text-sm"><a href="/">All</a></p>
+    <p class="bg-black h-9 text-white mx-1 px-4 py-2 rounded-md font-medium text-sm"><a href="/business.html">Business</a></p>
+    <p class="bg-gray-100 h-9 text-black mx-1 px-6 py-2 rounded-md font-medium text-sm"><a href="/sports.html">Sports</a></p>
+    <p class="bg-gray-100 h-9 text-black mx-1 px-4 py-2 rounded-md font-medium text-sm"><a href="/health.html">Health</a></p>
+    <p class="bg-gray-100 h-9 text-black mx-1 px-4 py-2 rounded-md font-medium text-sm"><a href="/science.html">Science</a></p>
+    <p class="bg-gray-100 h-9 text-black mx-1 px-4 py-2 rounded-md font-medium text-sm"><a href="/entertainment.html">Entertainment</a></p>
+    <p class="bg-gray-100 h-9 text-black mx-1 px-4 py-2 rounded-md font-medium text-sm"><a href="/technology.html">Technology</a></p>
+  </div>
+  
+  <div class="flex flex-row mx-4 my-2">
+    <img src="assets/shortsLogo.png" class="w-8 h-8" />
+    <p class="font-bold text-xl ml-4">Shorts</p>
+  </div>
+
+  <div class="animate-pulse flex flex-row justify-center items-center mx-4">
+    <div class="flex">
+      <div class="h-56 bg-slate-700 my-2 mx-2 rounded-md w-40"></div>
+      <div class="h-56 bg-slate-700 my-2 rounded-md mx-2 w-40"></div>
+    </div>
+  </div>
+  <div class="animate-pulse flex flex-row justify-center items-center mx-4">
+    <div class="flex">
+      <div class="h-56 bg-slate-700 my-2 mx-2 rounded-md w-40"></div>
+      <div class="h-56 bg-slate-700 my-2 rounded-md mx-2 w-40"></div>
+    </div>
+  </div>
+  
+    <div id="videos-container"></div>
+  <script src="/compenent/card.js"></script>
+  
+  <script>
+    let n = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=abe28a64cdb544148cc2e14ead9537cc&_=${new Date().getTime()}`;
+
+const newsApp = async () => {
+  const response = await fetch(n);
+  const data = await response.json();
+  console.log(data);
+  const articles = data.articles;
+  const videoElements = document.querySelectorAll(".video");
+  const titleElements = document.querySelectorAll(".title");
+  const nameElements = document.querySelectorAll(".name");
+  const publishElements = document.querySelectorAll(".publish");
+  const shuffledArticles = articles.sort(() => Math.random() - 0.5);
+  for (let i = 0; i < videoElements.length && i < shuffledArticles.length; i++) {
+    const article = shuffledArticles[i];
+
+    videoElements[i].innerHTML = `<img src="${article.urlToImage}" alt="News Image" class="w-[100%] h-48 md:h-96" />`;
+    titleElements[i].innerHTML = article.title;
+    nameElements[i].innerHTML = article.source.name + " • ";
+    publishElements[i].innerHTML = article.publishedAt;
+  }
+  console.log(shuffledArticles);
+}
+
+newsApp();
+  </script>
+</body>
+
+</html>

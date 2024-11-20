@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black">
+  <div class="bg-gray-100 mx-10">
+    <div class="category text-2xl text-center justify-center items-center"></div>
+    <div class="spot "></div>
+    <div class="opt "></div>
+    <div class="ans text-xl"></div>
+  </div>
+  <script>
+    const u = "https://opentdb.com/api.php?amount=50&type=boolean"
+    const age = async () => {
+      const response = await fetch(u);
+      const data = await response.json();
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        document.querySelector(".spot").innerHTML = data.results[0].question
+      }
+      document.querySelector(".category").innerHTML = data.results[0].category
+      document.querySelector(".spot").innerHTML = data.results[0].question
+      document.querySelector(".opt").innerHTML = "True Or False"
+      setTimeout(() => {
+        document.querySelector(".ans").innerHTML = data.results[0].correct_answer
+      }, 3000)
+
+    }
+    age()
+  </script>
+</body>
+
+</html>
